@@ -1,0 +1,66 @@
+name: AI Chat App CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Lint
+        run: npm run lint
+        
+      - name: Type Check
+        run: npm run type-check
+      
+      - name: Test
+        run: npm run test
+        env:
+          DATABASE_URL: "postgresql://test:test@localhost:5432/test_db"
+
+  build:
+    name: Build
+    needs: verify
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_ENDPOINT: "http://localhost:3000/api"
+          NEXT_PUBLIC_MEMORY_ENDPOINT: "http://localhost:3000/api/memory"
+          DATABASE_URL: "postgresql://test:test@localhost:5432/test_db"
+      
+      - name: Docker Build & Push
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker build -t ghcr.io/${{ github.repository }}:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }} .
+          docker push ghcr.io/${{ github.repository }}:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }} 

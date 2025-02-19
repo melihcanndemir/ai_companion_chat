@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  role      String   // 'user' veya 'assistant'
+  content   String
+  timestamp DateTime @default(now())
+  isDeleted Boolean  @default(false)
+  isStarred Boolean  @default(false)
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+model Memory {
+  id          String   @id @default(uuid())
+  type        String   // 'key_moment', 'preference', 'boundary'
+  category    String   // 'likes', 'dislikes', 'confession', 'mood'
+  content     String
+  importance  Int      @default(1) // 1-5 arası önem derecesi
+  timestamp   DateTime @default(now())
+  lastRecall  DateTime @default(now()) // Son hatırlanma zamanı
+  recallCount Int      @default(0)     // Kaç kez hatırlandı
+  isActive    Status   @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

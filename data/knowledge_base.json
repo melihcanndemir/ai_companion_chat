@@ -1,0 +1,58 @@
+{
+  "artists": {
+    "van_gogh": {
+      "name": "Vincent van Gogh",
+      "details": "Dutch Post-Impressionist painter (1853-1890)",
+      "death": {
+        "year": 1890,
+        "cause": "suicide",
+        "details": "Ended his life at age 37 due to mental health issues and depression"
+      },
+      "works": [
+        "The Starry Night",
+        "Sunflowers",
+        "The Potato Eaters",
+        "Bedroom in Arles",
+        "Wheatfield with Crows"
+      ],
+      "facts": [
+        "Only sold one painting during his lifetime",
+        "Struggled with mental health issues",
+        "Had a close relationship with his brother Theo",
+        "Cut off part of his ear",
+        "Created over 850 paintings in his 10-year artistic career",
+        "His letters are considered among the most important documents in art history"
+      ]
+    },
+    "picasso": {
+      "name": "Pablo Picasso",
+      "details": "Spanish painter, sculptor (1881-1973)",
+      "works": [
+        "Guernica",
+        "Les Demoiselles d'Avignon",
+        "The Weeping Woman",
+        "Blue Period works"
+      ],
+      "facts": [
+        "Pioneer of Cubism",
+        "One of the most influential artists of the 20th century",
+        "Lived to be 91 years old",
+        "His first word was reportedly 'pencil'"
+      ]
+    }
+  },
+  "topics": {
+    "art": {
+      "related": ["painting", "museum", "artist", "culture", "gallery", "exhibition"],
+      "context": "Art and cultural topics, art history, art movements, and information about artists"
+    },
+    "death": {
+      "related": ["die", "passed away", "suicide", "lost", "grief"],
+      "context": "Topics about death and loss, requiring sensitive approach"
+    },
+    "emotions": {
+      "related": ["happy", "sad", "angry", "love", "fear", "joy"],
+      "context": "Emotional topics and moods"
+    }
+  }
+} 
