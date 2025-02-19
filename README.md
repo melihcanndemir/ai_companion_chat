@@ -24,7 +24,7 @@ A sophisticated AI chat implementation built with Next.js and TypeScript, featur
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ai-chat-companion.git
+git clone https://github.com/melihcanndemir/ai_companion_chat.git
 ```
 
 2. Install dependencies
